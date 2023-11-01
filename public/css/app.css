@@ -1,0 +1,22 @@
+/* NAV-BAR */
+div .navbar-brand{
+    margin-left: 20px;
+    font-size: 25px;
+}
+.navbar-nav {
+    margin-left: 76%;
+    font-size: 18px;
+}
+/* ----------------- */
+
+/* PAGINATION */
+#page-link{
+}
+
+.active>.page-link, .page-link.active {
+    background-color: black;
+    border-color: black;
+}
+.page-link {
+    color: black;
+}
