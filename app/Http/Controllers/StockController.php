@@ -56,6 +56,23 @@ class StockController extends Controller
     {
         $product = Stock::find($id);
         $product->fill($request->all());
+
+        if(empty($product->name)){
+            $product->name = 'no value definition';
+        }
+
+        if(empty($product->price)){
+            $product->price = 0;
+        }
+
+        if(empty($product->description)){
+            $product->description = 'no value definition';
+        }
+
+        if(empty($product->id_typeRegister)){
+            $product->id_typeRegister = 0;
+        }
+
         $product->save();
         return redirect()->route('stock.home')->with('sucesso', 'Product edited with success!')->with('typeAlert', 'success')->with('icon','bi-patch-check-fill');
     }
