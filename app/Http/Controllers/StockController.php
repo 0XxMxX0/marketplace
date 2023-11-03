@@ -5,21 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Stock;
 use App\Models\TypeRegister;
 use Illuminate\Http\Request;
-
 class StockController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('typeRegisters')->only(['index','create','show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $typeRegister = TypeRegister::all();
         $stock = Stock::paginate(3);
-        return view('pages.stock.home', compact('stock', 'typeRegister'));
-    }
-
-    public function cancelAction($message, $typeAlert, $icon){
-        return redirect()->route('stock.home')->with('sucesso',$message)->with('typeAlert', $typeAlert)->with('icon',$icon);
+        return view('pages.stock.products.products', compact('stock'));
     }
 
     /**
@@ -27,6 +26,7 @@ class StockController extends Controller
      */
     public function create()
     {
+        return view('pages.stock.products.actions.create');
     }
 
     /**
@@ -34,9 +34,19 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => ['required','string'],
+            'price' => ['required','string'],
+            'amount' => ['required','numeric'],
+            'description' => ['required','string'],
+            'id_typeRegister' => ['required', 'exists:type_register,id'],
+        ]);
+
         $product = $request->all();
-        $product = Stock::create($product);
-        return redirect()->route('stock.home')->with('sucesso', 'Product created with success!')->with('typeAlert', 'success')->with('icon','bi-patch-plus-fill');
+        $product['price'] = $this->formatPrice($product['price']);
+        Stock::create($product);
+
+        return redirect()->route('stock.products')->with('sucesso', 'Product created with success!')->with('typeAlert', 'success')->with('icon','bi-patch-plus-fill');
     }
 
     /**
@@ -44,37 +54,16 @@ class StockController extends Controller
      */
     public function show(string $id)
     {
-        $typeRegister = TypeRegister::all();
         $product = Stock::where('id', $id)->first();
-        return view('pages.stock.details', compact('product','typeRegister'));
+        return view('pages.stock.products.actions.edit', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, Request $request)
+    public function edit(string $id)
     {
-        $product = Stock::find($id);
-        $product->fill($request->all());
-
-        if(empty($product->name)){
-            $product->name = 'no value definition';
-        }
-
-        if(empty($product->price)){
-            $product->price = 0;
-        }
-
-        if(empty($product->description)){
-            $product->description = 'no value definition';
-        }
-
-        if(empty($product->id_typeRegister)){
-            $product->id_typeRegister = 0;
-        }
-
-        $product->save();
-        return redirect()->route('stock.home')->with('sucesso', 'Product edited with success!')->with('typeAlert', 'success')->with('icon','bi-patch-check-fill');
+    //
     }
 
     /**
@@ -82,7 +71,18 @@ class StockController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required','string'],
+            'price' => ['required','string'],
+            'amount' => ['required','numeric'],
+            'description' => ['required','string'],
+            'id_typeRegister' => ['required', 'exists:type_register,id'],
+        ]);
+
+        $product = Stock::find($id)->fill($request->all());
+        $product->price = $this->formatPrice($product->price);
+        $product->save();
+        return redirect()->route('stock.products')->with('sucesso', 'Product edited with success!')->with('typeAlert', 'success')->with('icon','bi-patch-check-fill');
     }
 
     /**
@@ -90,8 +90,11 @@ class StockController extends Controller
      */
     public function destroy(string $id)
     {
-        $product = Stock::find($id);
-        $product->delete();
-        return redirect()->route('stock.home')->with('sucesso', 'Product deleted with success!')->with('typeAlert', 'success')->with('icon','bi-patch-minus-fill');
+        Stock::find($id)->delete();
+        return redirect()->route('stock.products')->with('sucesso', 'Product deleted with success!')->with('typeAlert', 'success')->with('icon','bi-patch-minus-fill');
+    }
+
+    public function formatPrice($price){
+        return (float) str_replace(',','.', preg_replace('/[^\d,]/u','',$price));
     }
 }

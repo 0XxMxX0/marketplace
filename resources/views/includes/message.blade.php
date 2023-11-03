@@ -4,5 +4,6 @@
         <div>
             &nbsp{{$mensagem}}
         </div>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif

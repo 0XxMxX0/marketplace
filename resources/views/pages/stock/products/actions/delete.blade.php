@@ -9,7 +9,7 @@
                 Are you sure you want to delete the product ?
             </div>
             <div class="modal-footer">
-                <form action="{{route('stock.delete', $productsDetails->id)}}" method="post">
+                <form action="{{route('stock.products.destroy', $productsDetails->id)}}" method="post">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-outline-danger">Delete</button>

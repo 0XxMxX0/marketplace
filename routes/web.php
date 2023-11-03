@@ -15,37 +15,24 @@ use \App\Http\Controllers\SiteController;
 |
 */
 
-//SITE
-Route::get('/',[
-    SiteController::class, 'index'
-])->name('site.home');
+//SITE PRIMARY
+Route::controller(SiteController::class)->group(function(){
+    Route::get('/', 'index')->name('page.index');
+    Route::get('/stock', 'stock')->name('page.stock');
+});
 
-Route::get('/stock/site/create/',[
-    SiteController::class, 'siteCreateProduct'
-])->name('site.stock.create');
+// STOCK SITES
+Route::controller(StockController::class)->group(function (){
+    Route::get('/stock/products', 'index')->name('stock.products');
+    Route::get('/stock/products/create', 'create')->name('stock.products.create');
+    Route::post('/stock/products/store/', 'store')->name('stock.products.store');
+    Route::get('/stock/products/show/{id}', 'show')->name('stock.products.show');
+    Route::post('/stock/products/update/{id}', 'update')->name('stock.products.update');
+    Route::delete('/stock/products/delete/{id}', 'destroy')->name('stock.products.destroy');
+});
 
-// STOCK
-Route::get('/stock/',[
-    StockController::class, 'index']
-)->name('stock.home');
-
-Route::get('/stock/{id}',[
-    StockController::class, 'show'
-])->name('stock.details');
-
-// STOCK ACTIONS
-Route::get('/stock/message/{message}/{typeAlert}/{icon}',[
-    StockController::class, 'cancelAction']
-)->name('stock.cancelAction');
-
-Route::post('/stock/create',[
-    StockController::class, 'store']
-)->name('stock.create');
-
-Route::delete('/stock/delete/{id}',[
-    StockController::class, 'destroy']
-)->name('stock.delete');
-
-Route::post('/stock/edit/{id}',[
-    StockController::class, 'edit']
-)->name('stock.edit');
+// ACTIONS OTHERS
+Route::get('/stock/back/{', function(){
+    return redirect()->route('stock.products')
+        ->with('sucesso','Action canceled')->with('typeAlert','warning')->with('icon','bi-x-circle-fill');
+})->name('back.stock.product');
