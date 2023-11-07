@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Stock;
 use App\Models\TypeRegister;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
@@ -13,13 +14,13 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
-    }
-
-    public function stock(){
         $product = Stock::all();
-        $totalEntrace = Stock::where('id_typeRegister', 1)->count();
-        $totalExit = Stock::where('id_typeRegister', 2)->count();
-        return view('pages.stock.home', compact('product', 'totalEntrace', 'totalExit'));
+        $contEntrace = Stock::where('id_typeRegister', 1)->count();
+        $contExit = Stock::where('id_typeRegister', 2)->count();
+
+        $entrace = Stock::where('id_typeRegister', 1)->pluck('price')->sum();
+        $exit = Stock::where('id_typeRegister', 2)->pluck('price')->sum();
+        $income = $exit - $entrace ;
+        return view('pages.home', compact('product', 'contEntrace', 'contExit', 'entrace','exit','income'));
     }
 }

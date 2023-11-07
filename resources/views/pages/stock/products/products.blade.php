@@ -12,7 +12,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('stock.products.create')}}" class="btn btn-outline-dark active"
-                       aria-current="page">Create</a>
+                       aria-current="page">Register Entrace</a>
                 </li>
             </ul>
             <table class="table">
@@ -57,7 +57,7 @@
             <div class="text-center mt-4">
                 <h1>Not Found Product</h1>
                 <a href="{{route('stock.products.create')}}" class="btn mt-2 btn-outline-dark active"
-                   aria-current="page">Create Product</a>
+                   aria-current="page">Register Entrace</a>
             </div>
         @endif
         <nav>

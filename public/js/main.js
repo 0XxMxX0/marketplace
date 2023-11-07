@@ -9,3 +9,27 @@ function formartInputForPrice(input){
 
     input.value = pattern.format(valueInput);
 }
+let price = [];
+function getTotalPrice(element){
+
+    elementValue = element.value;
+    price.push(elementValue)
+}
+console.log(price)
+
+
+
+
+    // let idPriceTotal = document.querySelector('#priceTotal');
+    // let option = element.selectedIndex;
+    // let optionPrice = element.options[option];
+    // let attOption = optionPrice.getAttribute('price');
+    //
+    // price.push(attOption);
+    //
+    // console.log(price);
+    // idPriceTotal.innerHTML =+ attOption;
+
+
+
+

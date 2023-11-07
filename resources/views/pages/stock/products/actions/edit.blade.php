@@ -43,7 +43,7 @@
                 <div class="col-5">
                     <div class="form-floating">
                         <select required class="form-select" id="id_typeRegister" name="id_typeRegister">
-                            @foreach($typeRegister as $type)
+                            @foreach($typeRegisters as $type)
                                 <option value="{{$type->id}}">{{$type->name}}</option>
                             @endforeach
                         </select>

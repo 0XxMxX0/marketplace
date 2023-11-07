@@ -9,7 +9,7 @@ class StockController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('typeRegisters')->only(['index','create','show']);
+        $this->middleware('typeRegisters');
     }
 
     /**
@@ -43,7 +43,7 @@ class StockController extends Controller
         ]);
 
         $product = $request->all();
-        $product['price'] = $this->formatPrice($product['price']);
+        $product['price'] = $this->formatPrice($product['price']) * $product['amount'];
         Stock::create($product);
 
         return redirect()->route('stock.products')->with('sucesso', 'Product created with success!')->with('typeAlert', 'success')->with('icon','bi-patch-plus-fill');

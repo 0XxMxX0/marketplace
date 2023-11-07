@@ -1,5 +1,5 @@
 @extends('pages.layout')
-@section('title', 'details')
+@section('title', 'Register Entrace')
 @section('content')
 
     <div class="container">
@@ -16,7 +16,7 @@
 
         <form action="{{route('stock.products.store')}}" method="post" enctype="multipart/form-data">
         @csrf
-        <h3>Create product</h3>
+        <h3>Register Entrace</h3>
             <div class="row g-2 mb-1">
                 <div class="col-5">
                     <div class="form-floating">
@@ -41,9 +41,7 @@
                 <div class="col-5">
                     <div class="form-floating">
                         <select class="form-select" id="id_typeRegister" name="id_typeRegister">
-                            @foreach($typeRegisters as $type)
-                                <option value="{{$type->id}}">{{$type->name}}</option>
-                            @endforeach
+                                <option value="1">Entrace</option>
                         </select>
                         <label for="floatingSelectGrid">Type Register</label>
                     </div>
@@ -57,7 +55,7 @@
             </div>
 
             <div class="btn-group" role="group" aria-label="format ">
-                <button type="submit" class="btn btn-outline-dark">Create product</button>
+                <button type="submit" class="btn btn-outline-dark">Register Entrace</button>
                 <a href="{{route('back.stock.product') }}" type="button" class="btn btn-dark">Cancel</a>
             </div>
         </form>

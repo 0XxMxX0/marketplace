@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="{{asset('css/app3.css')}}" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
@@ -21,14 +22,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('page.index')}}">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{route('page.stock')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Stock
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{route('page.stock')}}">Stock</a></li>
-                            <li><a class="dropdown-item" href="{{route('stock.products')}}">Products</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{route('stock.products')}}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-success" aria-current="page" href="{{route('sales.index')}}">Register Sales</a>
                     </li>
                 </ul>
             </div>
@@ -37,8 +35,8 @@
 
     @yield('content')
 
-    {{-- JS--}}
-    <script src="{{asset('js/main.js')}}"></script>
+    {{-- JS --}}
+    <script src="{{asset('js/main.js')}}" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

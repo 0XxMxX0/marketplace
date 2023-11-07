@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\StockController;
 use \App\Http\Controllers\SiteController;
+use \App\Http\Controllers\SalesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,9 @@ use \App\Http\Controllers\SiteController;
 //SITE PRIMARY
 Route::controller(SiteController::class)->group(function(){
     Route::get('/', 'index')->name('page.index');
-    Route::get('/stock', 'stock')->name('page.stock');
 });
 
-// STOCK SITES
+// STOCK ROUTES
 Route::controller(StockController::class)->group(function (){
     Route::get('/stock/products', 'index')->name('stock.products');
     Route::get('/stock/products/create', 'create')->name('stock.products.create');
@@ -29,6 +29,12 @@ Route::controller(StockController::class)->group(function (){
     Route::get('/stock/products/show/{id}', 'show')->name('stock.products.show');
     Route::post('/stock/products/update/{id}', 'update')->name('stock.products.update');
     Route::delete('/stock/products/delete/{id}', 'destroy')->name('stock.products.destroy');
+});
+
+// SALES ROUTES
+Route::controller(SalesController::class)->group(function (){
+    Route::get('sales/', 'index')->name('sales.index');
+    Route::get('sales/create', 'create')->name('sales.create');
 });
 
 // ACTIONS OTHERS
